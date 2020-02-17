@@ -21,14 +21,15 @@ def print_word_freq(file):
         for line in lines:
             for word in line.split(' '):
                 word = clean_string(word)
-                if word not in STOP_WORDS and word in collector:
-                    collector[word] += '*'
-                    if len(word) > just_width:
-                        just_width = len(word)
-                elif word not in STOP_WORDS and word not in collector:
-                    collector[word] = '*'
-                    if len(word) > just_width:
-                        just_width = len(word)
+                if len(word)>0:
+                    if word not in STOP_WORDS and word in collector:
+                        collector[word] += '*'
+                        if len(word) > just_width:
+                            just_width = len(word)
+                    elif word not in STOP_WORDS and word not in collector:
+                        collector[word] = '*'
+                        if len(word) > just_width:
+                            just_width = len(word)
     for i,j in collector.items():
         print(f'{i.rjust(just_width)} | {len(j)} {j}')
     return collector
