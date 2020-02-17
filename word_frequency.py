@@ -33,15 +33,13 @@ def print_word_freq(file):
         line = double_hyphen_case(line)
         for word in line.split(' '):
             word = clean_string(word)
-            if len(word)>0:
-                if word not in STOP_WORDS and word in collector:
+            if len(word)>0 and word not in STOP_WORDS:
+                if len(word) > just_width:
+                        just_width = len(word)
+                if word in collector:
                     collector[word] += '*'
-                    if len(word) > just_width:
-                        just_width = len(word)
-                elif word not in STOP_WORDS and word not in collector:
+                elif word not in collector:
                     collector[word] = '*'
-                    if len(word) > just_width:
-                        just_width = len(word)
     for word, count in collector.items():
         print(f'{word.rjust(just_width)} | {str(len(count)).ljust(2)} {count}')
     return collector
