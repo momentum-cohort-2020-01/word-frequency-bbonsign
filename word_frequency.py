@@ -4,6 +4,9 @@ STOP_WORDS = [
     'will', 'with'
 ]
 
+sen = 'seneca_falls.txt'
+eman = 'emancipation_proclamation.txt'
+
 def clean_string(string):
     """Remove whitespace and punctuation and converts to lowercase"""
     s = ''
@@ -13,27 +16,27 @@ def clean_string(string):
     return s
 
 def print_word_freq(file):
-    """Read in `file` and print out the frequency of words in that file."""
+    """Read in 'file' and print out the frequency of words in that file."""
     collector = {}
     just_width = 0
     with open(file, 'r') as text:
         lines = text.readlines()
-        for line in lines:
-            for word in line.split(' '):
-                word = clean_string(word)
-                if len(word)>0:
-                    if word not in STOP_WORDS and word in collector:
-                        collector[word] += '*'
-                        if len(word) > just_width:
-                            just_width = len(word)
-                    elif word not in STOP_WORDS and word not in collector:
-                        collector[word] = '*'
-                        if len(word) > just_width:
-                            just_width = len(word)
-    for i,j in collector.items():
-        print(f'{i.rjust(just_width)} | {len(j)} {j}')
-    return collector
 
+    for line in lines:
+        for word in line.split(' '):
+            word = clean_string(word)
+            if len(word)>0:
+                if word not in STOP_WORDS and word in collector:
+                    collector[word] += '*'
+                    if len(word) > just_width:
+                        just_width = len(word)
+                elif word not in STOP_WORDS and word not in collector:
+                    collector[word] = '*'
+                    if len(word) > just_width:
+                        just_width = len(word)
+    for word, count in collector.items():
+        print(f'{word.rjust(just_width)} | {len(count)} {count}')
+    return collector
 
 if __name__ == "__main__":
     import argparse
