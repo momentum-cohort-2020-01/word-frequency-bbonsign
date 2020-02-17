@@ -11,9 +11,16 @@ def clean_string(string):
     """Remove whitespace and punctuation and converts to lowercase"""
     s = ''
     for char in string.lower():
-        if char.isalpha():
+        if char.isalpha() or char == '-':
             s+= char
     return s
+
+def double_hyphen_case(line):
+    split_line = line.split('--')
+    new_line = ''
+    for split in split_line:
+        new_line += ' '+split
+    return new_line
 
 def print_word_freq(file):
     """Read in 'file' and print out the frequency of words in that file."""
@@ -23,6 +30,7 @@ def print_word_freq(file):
         lines = text.readlines()
 
     for line in lines:
+        line = double_hyphen_case(line)
         for word in line.split(' '):
             word = clean_string(word)
             if len(word)>0:
