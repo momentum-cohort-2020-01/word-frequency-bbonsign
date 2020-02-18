@@ -36,7 +36,7 @@ def get_just_width (dic):
     """returns max length of key in dic for pretty printing"""
     return reduce(lambda a,b: a if a>b else b , [len(key) for key in dic.keys()])
 
-def make_starts(n):
+def make_stars(n):
     return '*'*n
 
 def print_word_freq(file):
@@ -44,7 +44,7 @@ def print_word_freq(file):
     counts = count_words(file)
     just_width = get_just_width(counts)
     for word, count in sorted( counts.items(), key = lambda item: item[1], reverse=True):
-        print(f"{word.rjust(just_width)} | {str(count).ljust(2)} {make_starts(count)}")
+        print(f"{word.rjust(just_width)} | {str(count).ljust(2)} {make_stars(count)}")
 
 
 if __name__ == "__main__":
