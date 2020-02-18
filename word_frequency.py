@@ -3,7 +3,7 @@ from functools import reduce
 STOP_WORDS = [
     'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'has', 'he',
     'i', 'in', 'is', 'it', 'its', 'of', 'on', 'that', 'the', 'to', 'were',
-    'will', 'with'
+    'will', 'with', ''
 ]
 
 sen = 'seneca_falls.txt'
@@ -24,9 +24,6 @@ def double_hyphen_case(line):
         new_line += ' '+split
     return new_line
 
-def make_starts(n):
-    return '*'*n
-
 def count_words (file):
     collector = {}
     with open(file, 'r') as text:
@@ -35,17 +32,16 @@ def count_words (file):
         line = double_hyphen_case(line)
         for word in line.split(' '):
             word = clean_string(word)
-            if len(word)>0 and word not in STOP_WORDS:
-                if word in collector:
-                    collector[word] += 1
-                elif word not in collector:
-                    collector[word] = 1
+            if word not in STOP_WORDS:
+                collector[word] = collector.get(word,0) + 1
     return collector
 
 def get_just_width (dic):
     """returns max length of key in dic for pretty printing"""
     return reduce(lambda a,b: a if a>b else b , [len(key) for key in dic.keys()])
 
+def make_starts(n):
+    return '*'*n
 
 def print_word_freq(file):
     """Read in 'file' and print out the frequency of words in that file."""
@@ -53,6 +49,7 @@ def print_word_freq(file):
     just_width = get_just_width(counts)
     for word, count in counts.items():
         print(f'{word.rjust(just_width)} | {str(count).ljust(2)} {make_starts(count)}')
+
 
 if __name__ == "__main__":
     import argparse
