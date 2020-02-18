@@ -11,11 +11,7 @@ eman = 'emancipation_proclamation.txt'
 
 def clean_string(string):
     """Remove whitespace and punctuation and converts to lowercase"""
-    s = ''
-    for char in string.lower():
-        if char.isalpha() or char == '-':
-            s+= char
-    return s
+    return ''.join(filter(lambda char: char.isalpha() or char =='-' , string.lower()))
 
 def double_hyphen_case(line):
     split_line = line.split('--')
