@@ -48,7 +48,7 @@ def print_word_freq(file):
     counts = count_words(file)
     just_width = get_just_width(counts)
     for word, count in sorted( counts.items(), key = lambda item: item[1], reverse=True):
-        print(f'{word.rjust(just_width)} | {str(count).ljust(2)} {make_starts(count)}')
+        print(f"{word.rjust(just_width)} | {str(count).ljust(2)} {make_starts(count)}")
 
 
 if __name__ == "__main__":
