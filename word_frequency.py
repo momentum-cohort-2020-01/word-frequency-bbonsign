@@ -9,9 +9,11 @@ STOP_WORDS = [
 sen = 'seneca_falls.txt'
 eman = 'emancipation_proclamation.txt'
 
+
 def clean_string(string):
     """Remove whitespace and punctuation and converts to lowercase"""
-    return ''.join(filter(lambda char: char.isalpha() or char =='-' , string.lower()))
+    return ''.join(filter(lambda char: char.isalpha() or char == '-', string.lower()))
+
 
 def double_hyphen_case(line):
     split_line = line.split('--')
@@ -20,7 +22,8 @@ def double_hyphen_case(line):
         new_line += ' '+split
     return new_line
 
-def count_words (file):
+
+def count_words(file):
     collector = {}
     with open(file, 'r') as text:
         lines = text.readlines()
@@ -29,21 +32,24 @@ def count_words (file):
         for word in line.split(' '):
             word = clean_string(word)
             if word not in STOP_WORDS:
-                collector[word] = collector.get(word,0) + 1
+                collector[word] = collector.get(word, 0) + 1
     return collector
 
-def get_just_width (dic):
+
+def get_just_width(dic):
     """returns max length of key in dic for pretty printing"""
-    return reduce(lambda a,b: a if a>b else b , [len(key) for key in dic.keys()])
+    return reduce(lambda a, b: a if a > b else b, [len(key) for key in dic.keys()])
+
 
 def make_stars(n):
     return '*'*n
+
 
 def print_word_freq(file):
     """Read in 'file' and print out the frequency of words in that file."""
     counts = count_words(file)
     just_width = get_just_width(counts)
-    for word, count in sorted( counts.items(), key = lambda item: item[1], reverse=True):
+    for word, count in sorted(counts.items(), key=lambda item: item[1], reverse=True):
         print(f"{word.rjust(just_width)} | {str(count).ljust(2)} {make_stars(count)}")
 
 
